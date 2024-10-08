@@ -4,17 +4,25 @@ const SQL = `
   CREATE TABLE IF NOT EXISTS club_users (
     id SERIAL PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
-    email VARCHAR(100) NOT NULL UNIQUE,
+    email VARCHAR(100) UNIQUE,
     password VARCHAR(100),
     is_admin BOOLEAN DEFAULT FALSE,
     is_club_member BOOLEAN DEFAULT FALSE
+  );
+
+  CREATE TABLE IF NOT EXISTS club_federated_credentials (
+    id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES club_users(id),
+    provider VARCHAR(100),
+    subject VARCHAR(255),
+    UNIQUE (provider, subject)
   );
 
   CREATE TABLE IF NOT EXISTS club_posts (
     id SERIAL PRIMARY KEY,
     title VARCHAR(100) NOT NULL,
     content VARCHAR(255) NOT NULL,
-    user_id INTEGER REFERENCES users(id),
+    user_id INTEGER REFERENCES club_users(id),
     created_at TIMESTAMP DEFAULT (TIMEZONE('UTC', NOW()))
   );
 
@@ -27,7 +35,7 @@ const SQL = `
   INSERT INTO club_codes (name, code)
   VALUES
   ('admin', 'admin'),
-  ('member', 'member');
+  ('member', 'member')
   ON CONFLICT (name) DO NOTHING;
 `;
 
