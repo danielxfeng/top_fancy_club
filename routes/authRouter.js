@@ -18,6 +18,10 @@ import {
   authGetSignup,
   authPostSignup,
   authGetLogout,
+  authGetJoinMembership,
+  authPostJoinMembership,
+  authGetJoinAdmin,
+  authPostJoinAdmin,
 } from "../controllers/authController.mjs";
 
 // Configure the authentication middleware
@@ -99,5 +103,9 @@ authRouter.post(
 authRouter.get("/user/signup", authGetSignup);
 authRouter.post("/user/signup", authPostSignup);
 authRouter.get("/user/logout", authGetLogout);
+authRouter.get("/user/join_membership/:id", authGetJoinMembership);
+authRouter.post("/user/join_membership", authPostJoinMembership);
+authRouter.get("/user/join_admin/:id", authGetJoinAdmin);
+authRouter.post("/user/join_admin", authPostJoinAdmin);
 
 export default authRouter;
