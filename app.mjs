@@ -1,6 +1,6 @@
 import express from "express";
 import session from "express-session";
-import { csrfSync } from 'csrf-sync';
+import { csrfSync } from "csrf-sync";
 import dotenv from "dotenv";
 import pgSimple from "connect-pg-simple";
 import passport from "passport";
@@ -80,4 +80,9 @@ app.use((err, req, res, next) => {
   // render the error page
   res.status(err.status || 500);
   res.render("error");
+});
+
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 });
