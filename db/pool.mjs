@@ -1,5 +1,8 @@
+import dotenv from "dotenv";
 import pkg from "pg";
 const { Pool } = pkg;
+
+dotenv.config();
 
 // Create the pool of DB connections
 const pool = new Pool({
