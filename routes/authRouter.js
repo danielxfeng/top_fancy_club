@@ -12,6 +12,12 @@ import {
   readUserFromOAuth,
   createUserFromOAuth,
 } from "../db/dbqueries.mjs";
+import {
+  authGetLogin,
+  authGetSignup,
+  authPostSignup,
+  authGetLogout,
+} from "../controllers/authController.mjs";
 
 // Configure the authentication middleware
 
@@ -79,4 +85,29 @@ passport.deserializeUser(async (id, done) => {
 
 const authRouter = express.Router();
 
+// href to google login page.
 authRouter.get("/user/login/federated/google", passport.authenticate("google"));
+
+// Callback of google login page.
+authRouter.get(
+  "/oauth2/redirect/google",
+  passport.authenticate("google", {
+    successRedirect: "/",
+    failureRedirect: "/user/login",
+  })
+);
+
+authRouter.get("/user/login", authGetLogin);
+authRouter.post(
+  "/user/login",
+  passport.authenticate("local", {
+    successRedirect: "/",
+    failureRedirect: "/user/login",
+    failureFlash: true,
+  })
+);
+authRouter.get("/user/signup", authGetSignup);
+authRouter.post("/user/signup", authPostSignup);
+authRouter.get("/user/logout", authGetLogout);
+
+export default authRouter;
