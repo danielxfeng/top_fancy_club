@@ -1,9 +1,19 @@
 <header>
-  <a href="/"><p>Fancy Inventory App</p></a>
+  <a href="/"><p>Fancy Club</p></a>
   <nav>
     <ul>
       <li><a href="/">Home</a></li>
       <li><a href="/posts">Posts</a></li>
     </ul>
   </nav>
+  <div>
+    <% if(!locals.user || !user) {%>
+    <a href="/user/login">Login</a>
+    <% } else { %>
+    <span><%= user.name %></span>
+    <a href="/user/join_membership/<%= user.id %>">Join the membership</a>
+    <a href="/user/join_admin/<%= user.id %>">Join the admin team</a>
+    <a href="/user/logout">Logout</a>
+    <% } %>
+  </div>
 </header>

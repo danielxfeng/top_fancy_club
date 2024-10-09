@@ -14,3 +14,5 @@ appRouter.get("/posts", postsGet);
 appRouter.get("/posts/new", postsNewGet);
 appRouter.post("/posts/new", postsNewPost);
 appRouter.delete("/posts/:id", postsDelete);
+
+export default appRouter;

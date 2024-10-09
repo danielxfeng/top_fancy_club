@@ -1,13 +1,13 @@
 import express from "express";
 import session from "express-session";
-import { csrfSync } from "csrf-sync";
 import dotenv from "dotenv";
 import pgSimple from "connect-pg-simple";
 import passport from "passport";
 import flash from "connect-flash";
-import path from "path";
+import path, { dirname } from "path";
 import { fileURLToPath } from "url";
 import pool from "./db/pool.mjs";
+import methodOverride from "method-override";
 import appRouter from "./routes/appRouter.mjs";
 import authRouter from "./routes/authRouter.mjs";
 
@@ -30,7 +30,7 @@ app.use(methodOverride("_method"));
 // Session configuration
 const pgSession = pgSimple(session);
 app.use(
-  expressSession({
+  session({
     store: new pgSession({
       pool: pool,
       tableName: "session",
@@ -38,19 +38,16 @@ app.use(
     secret: process.env.FOO_COOKIE_SECRET,
     resave: false,
     cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 },
+    saveUninitialized: false,
   })
 );
 
-// CSRF protection configuration
-const { csrfSynchronisedProtection } = csrfSync();
-app.use(csrfSynchronisedProtection);
-app.use(function (req, res, next) {
-  res.locals.csrfToken = req.csrfToken();
-  next();
-});
-
 // Passport configuration
 app.use(passport.session());
+app.use((req, res, next) => {
+  res.locals.user = req.user;
+  next();
+});
 
 // Flash messages configuration
 app.use(flash());
@@ -79,7 +76,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render("error");
+  res.render("errorPage", { title: "Error", req });
 });
 
 const PORT = process.env.PORT || 8080;
