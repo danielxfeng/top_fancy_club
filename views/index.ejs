@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head.ejs", { title: title }) %>
+  <body>
+    <%- include("partials/header.ejs", { title: title }) %>
+    <main>
+      <h1><%= title %></h1>
+      <div>
+        <h2>Welcome to the Fancy Club!</h2>
+        <p>You can view all posts anonymously.</p>
+        <p>
+          However, as a member of our club, you will be able to see the sender's
+          information and the post's creation time!
+        </p>
+        <p>Only administrators are allowed to delete posts.</p>
+        <p>
+          This is an exercise of
+          <a
+            href="https://theodinproject.com"
+            target="_blank"
+            rel="noopener noreferrer"
+            >The odin project</a
+          >
+          , <b>please do not use real information</b>.
+        </p>
+        <p>You may not use Oauth login, since I have not add your account to white list.</p>
+        <p>The invitation code to become a club member is "member".</p>
+        <p>The invitation code to become an administrator is "admin".</p>
+      </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+  </body>
+</html>

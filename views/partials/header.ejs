@@ -1,0 +1,29 @@
+<header>
+  <div class="left">
+    <a href="/"><p>Fancy Club</p></a>
+    <nav>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/posts">Posts</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="right">
+    <p>
+      <% if(!locals.user || !user) {%>
+      <a href="/user/login">Login</a>
+      <% } else { %>
+      <span>Welcome, <%= user.name %></span> |
+      <a href="/user/logout">Logout</a>
+    </p>
+    <div>
+      <% if(!user.is_club_member) { %>
+      <a class="smaller_a" href="/user/join_membership/">Join the club</a> ｜ 
+      <% } %>
+      <% if(!user.is_admin) { %>
+      <a class="smaller_a" href="/user/join_admin/">Join the admin team</a>
+      <% } %>
+      <% } %>
+    </div>
+  </div>
+</header>

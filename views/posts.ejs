@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head.ejs", { title: title }) %>
+  <body>
+    <%- include("partials/header.ejs", { title: title }) %>
+    <main>
+      <h1><%= title %></h1>
+      <%- include("partials/error.ejs") %>
+      <div class="posts-container">
+        <div class="posts">
+          <% if (posts.length === 0) { %>
+          <div>No posts yet.</div>
+          <% } else { %>
+          <% posts.forEach(post => { %>
+          <div class="post">
+            <% Object.entries(post).forEach(([key, value]) => { %>
+            <% let view = true; %>
+            <% if (key === "id") view = false; %>
+            <% if (["user_name", "created_at"].includes(key) && (!user || !user.is_club_member)) view = false; %>
+            <% if (view) { %>
+            <div class="<%= key %>">
+              <span class="value"><%= value %></span>
+            </div>
+            <% } %>
+            <% }) %>
+            <% if (user && user.is_admin) { %>
+            <form action="/posts/delete?_method=DELETE" method="post">
+              <input type="hidden" name="id" value="<%= post.id %>" />
+              <button type="submit">Delete</button>
+            </form>
+            <% } %>
+          </div>
+          <% }) %>
+          <% } %>
+        </div>
+        <a class="button_a" href="/posts/new">New Post</a>
+      </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const dts = document.querySelectorAll(".created_at");
+        dts.forEach(dt => {
+            const date = new Date(dt.querySelector(".value").textContent);
+            console.log(date.toLocaleString());
+            dt.querySelector(".value").textContent = date.toLocaleString();
+        });
+      });
+    </script>
+  </body>
+</html>
