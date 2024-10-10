@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head.ejs", { title: title }) %>
+  <body>
+    <%- include("partials/header.ejs", { title: title }) %>
+    <main>
+      <h1><%= title %></h1>
+      <%- include("partials/error.ejs") %>
+      <div>
+        <% if (!user) { %>
+        <div>You must be logged in to create a post.</div>
+        <a href="/user/login">Log In</a>
+        <% } else { %>
+        <form action="/posts/new" method="post">
+          <label for="title">Title</label>
+          <input type="text" id="title" name="title" required />
+          <label for="content">Content</label>
+          <textarea id="content" name="content" required></textarea>
+          <button type="submit">Post</button>
+        </form>
+        <% } %>
+      </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+  </body>
+</html>

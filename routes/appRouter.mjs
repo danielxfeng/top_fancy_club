@@ -13,6 +13,6 @@ appRouter.get("/", homeGet);
 appRouter.get("/posts", postsGet);
 appRouter.get("/posts/new", postsNewGet);
 appRouter.post("/posts/new", postsNewPost);
-appRouter.delete("/posts/:id", postsDelete);
+appRouter.delete("/posts/delete", postsDelete);
 
 export default appRouter;

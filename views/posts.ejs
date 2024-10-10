@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head.ejs", { title: title }) %>
+  <body>
+    <%- include("partials/header.ejs", { title: title }) %>
+    <main>
+      <h1><%= title %></h1>
+      <%- include("partials/error.ejs") %>
+      <div class="posts-container">
+        <div class="posts">
+          <% posts.forEach(post => { %>
+          <div class="post">
+            <% Object.entries(post).forEach(([key, value]) => { %>
+            <% let view = true; %>
+            <% if (key === "id") view = false; %>
+            <% if (["user_name", "created_at"].includes(key) && !user.is_club_member) view = false; %>
+            <% if (view) { %>
+            <div class="<%= key %>">
+              <span class="key"><%= key %></span>
+              <span class="value"><%= value %></span>
+            </div>
+            <% } %>
+            <% }) %>
+            <% if (user.is_admin) { %>
+            <form action="/posts/delete?_method=DELETE" method="post">
+              <input type="hidden" name="id" value="<%= post.id %>" />
+              <button type="submit">Delete</button>
+            </form>
+            <a href="/posts/new">New Post</a>
+          </div>
+          <% })%>
+        </div>
+      </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+  </body>
+</html>
