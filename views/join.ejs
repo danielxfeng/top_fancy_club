@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("partials/head.ejs", { title: title }) %>
+  <body>
+    <%- include("partials/header.ejs", { title: title }) %>
+    <main>
+      <h1><%= title %></h1>
+      <%- include("partials/error.ejs") %>
+      <div>
+        <form action="/user/join_<%= link %>" method="post">
+          <label for="code">Please input the secret code: </label>
+          <input type="text" id="code" name="code" required />
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </main>
+    <%- include("partials/footer.ejs") %>
+  </body>
+</html>

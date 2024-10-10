@@ -28,6 +28,10 @@ import {
 
 passport.use(
   new LocalStrategy(
+    {
+      usernameField: "email",
+      passwordField: "password",
+    },
     asyncHandler(async (email, password, done) => {
       const user = await readUserByEmail(email);
 
@@ -103,9 +107,9 @@ authRouter.post(
 authRouter.get("/user/signup", authGetSignup);
 authRouter.post("/user/signup", authPostSignup);
 authRouter.get("/user/logout", authGetLogout);
-authRouter.get("/user/join_membership/:id", authGetJoinMembership);
+authRouter.get("/user/join_membership/", authGetJoinMembership);
 authRouter.post("/user/join_membership", authPostJoinMembership);
-authRouter.get("/user/join_admin/:id", authGetJoinAdmin);
+authRouter.get("/user/join_admin/", authGetJoinAdmin);
 authRouter.post("/user/join_admin", authPostJoinAdmin);
 
 export default authRouter;
