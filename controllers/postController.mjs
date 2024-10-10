@@ -15,7 +15,7 @@ const postsGet = asyncHandler(async (req, res) => {
 
 // GET /posts/new
 const postsNewGet = asyncHandler((req, res) => {
-  res.render("new", { title: "New Post" });
+  res.render("createPost", { title: "New Post" });
 });
 
 const newPostValidation = [
