@@ -8,9 +8,9 @@
       <%- include("partials/error.ejs") %>
       <div class="posts-container">
         <div class="posts">
-          <if (posts.length === 0) { %>
+          <% if (posts.length === 0) { %>
           <div>No posts yet.</div>
-          <% } %>
+          <% } else { %>
           <% posts.forEach(post => { %>
           <div class="post">
             <% Object.entries(post).forEach(([key, value]) => { %>
@@ -29,10 +29,12 @@
               <input type="hidden" name="id" value="<%= post.id %>" />
               <button type="submit">Delete</button>
             </form>
-            <a href="/posts/new">New Post</a>
+            <% } %>
           </div>
-          <% })%>
+          <% }) %>
+          <% } %>
         </div>
+        <a href="/posts/new">New Post</a>
       </div>
     </main>
     <%- include("partials/footer.ejs") %>
