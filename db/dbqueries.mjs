@@ -101,7 +101,7 @@ const updateAdminStatus = async (id, isAdmin, code) => {
 const createPost = async (title, content, userId) => {
   const SQL =
     "INSERT INTO club_posts (title, content, user_id) VALUES ($1, $2, $3)";
-  return query(SQL, [title, content, userId]);
+  return query(SQL, [title, content, userId]).rows[0]; // We created only one post once.
 };
 
 // Read all posts
