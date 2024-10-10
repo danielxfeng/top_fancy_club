@@ -18,10 +18,13 @@ const loginValidation = [
 ];
 
 // GET /login
-const authGetLogin = asyncHandler((req, res) => {
-  if (req.user) return res.redirect("/");
-  res.render("login", { title: "Login" });
-});
+const authGetLogin = [
+  loginValidation,
+  asyncHandler((req, res) => {
+    if (req.user) return res.redirect("/");
+    res.render("login", { title: "Login" });
+  }),
+];
 
 // GET /signup
 const authGetSignup = asyncHandler((req, res) => {
