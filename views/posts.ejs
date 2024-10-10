@@ -16,15 +16,14 @@
             <% Object.entries(post).forEach(([key, value]) => { %>
             <% let view = true; %>
             <% if (key === "id") view = false; %>
-            <% if (["user_name", "created_at"].includes(key) && !user.is_club_member) view = false; %>
+            <% if (["user_name", "created_at"].includes(key) && (!user || !user.is_club_member)) view = false; %>
             <% if (view) { %>
             <div class="<%= key %>">
-              <span class="key"><%= key %></span>
               <span class="value"><%= value %></span>
             </div>
             <% } %>
             <% }) %>
-            <% if (user.is_admin) { %>
+            <% if (user && user.is_admin) { %>
             <form action="/posts/delete?_method=DELETE" method="post">
               <input type="hidden" name="id" value="<%= post.id %>" />
               <button type="submit">Delete</button>
@@ -34,9 +33,19 @@
           <% }) %>
           <% } %>
         </div>
-        <a href="/posts/new">New Post</a>
+        <a class="button_a" href="/posts/new">New Post</a>
       </div>
     </main>
     <%- include("partials/footer.ejs") %>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const dts = document.querySelectorAll(".created_at");
+        dts.forEach(dt => {
+            const date = new Date(dt.querySelector(".value").textContent);
+            console.log(date.toLocaleString());
+            dt.querySelector(".value").textContent = date.toLocaleString();
+        });
+      });
+    </script>
   </body>
 </html>

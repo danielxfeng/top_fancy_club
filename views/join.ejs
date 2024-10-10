@@ -6,7 +6,7 @@
     <main>
       <h1><%= title %></h1>
       <%- include("partials/error.ejs") %>
-      <div>
+      <div class="form_container">
         <form action="/user/join_<%= link %>" method="post">
           <label for="code">Please input the secret code: </label>
           <input type="text" id="code" name="code" required />

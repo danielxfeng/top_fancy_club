@@ -19,7 +19,7 @@ header {
   min-height: 75px;
   flex: 0;
   display: flex;
-  justify-content: start;
+  justify-content: space-between;
   align-items: center;
   gap: 50px;
 }
@@ -68,6 +68,21 @@ header p {
   font-family: "Montserrat", system-ui;
 }
 
+.left {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 20px;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-right: 20px;
+}
+
 header a,
 header a:hover,
 header a:visited,
@@ -81,10 +96,15 @@ footer a:focus {
   color: inherit;
 }
 
-header a {
+.left a {
   text-decoration: none;
   font-size: 1.6rem;
   margin-left: 40px;
+}
+
+.smaller_a {
+  text-decoration: none;
+  font-size: 0.8rem;
 }
 
 ul {
@@ -102,12 +122,15 @@ nav a {
 
 main h1,
 main div,
-main a,
 main form {
   margin-left: 40px;
 }
 
-main a {
+main a{
+  color: #075985;
+}
+
+.button_a {
   text-decoration: none;
   width: fit-content;
   color: #f5f5f5;
@@ -116,11 +139,47 @@ main a {
   border-radius: 10px;
 }
 
+.login_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.form_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.btn_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn_container a {
+  display: flex;
+  justify-content: center;
+}
+
+.btn_container a {
+  width: 150px;
+}
+
 form, form div {
   display: flex;
   flex-direction: column;
   gap: 20px;
   width: 80%;
+  max-width: 400px;
 }
 
 input,
@@ -141,150 +200,42 @@ button {
   cursor: pointer;
 }
 
-table {
-  width: 80%;
-}
-
-table .actions {
-  display: flex;
-  justify-content: center;
-}
-
-table .actions form {
-  width: fit-content;
-}
-
-th {
-  height: 30px;
-}
-
-th, td {
-  text-align: center;
-  padding: 3px;
-  border-radius: 5px;
-}
-
-th, tbody tr:nth-child(even) {
-  background-color: #e5e7eb;
-}
-
-.id, .depart_id, .nationality_id {
-  display: none;
-}
-
-table .actions button, table .actions a {
-  line-height: 1.5;
-  padding: 5px 15px;
-  font-size: 0.8rem;
-  border-radius: 5px;
-  width: fit-content;
-}
-
 .errors {
   color: red;
 }
 
-
-.gsi-material-button {
-  -moz-user-select: none;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  -webkit-appearance: none;
-  background-color: WHITE;
-  background-image: none;
-  border: 1px solid #747775;
-  -webkit-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-sizing: border-box;
-  box-sizing: border-box;
-  color: #1f1f1f;
-  cursor: pointer;
-  font-family: 'Roboto', arial, sans-serif;
-  font-size: 14px;
-  height: 40px;
-  letter-spacing: 0.25px;
-  outline: none;
-  overflow: hidden;
-  padding: 0 12px;
-  position: relative;
-  text-align: center;
-  -webkit-transition: background-color .218s, border-color .218s, box-shadow .218s;
-  transition: background-color .218s, border-color .218s, box-shadow .218s;
-  vertical-align: middle;
-  white-space: nowrap;
-  width: auto;
-  max-width: 400px;
-  min-width: min-content;
-}
-
-.gsi-material-button .gsi-material-button-icon {
-  height: 20px;
-  margin-right: 12px;
-  min-width: 20px;
-  width: 20px;
-}
-
-.gsi-material-button .gsi-material-button-content-wrapper {
-  -webkit-align-items: center;
-  align-items: center;
-  display: flex;
-  -webkit-flex-direction: row;
-  flex-direction: row;
-  -webkit-flex-wrap: nowrap;
-  flex-wrap: nowrap;
-  height: 100%;
-  justify-content: space-between;
-  position: relative;
+.posts {
   width: 100%;
+  margin: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+  justify-content: center;
+  gap: 20px 0;
 }
 
-.gsi-material-button .gsi-material-button-contents {
-  -webkit-flex-grow: 1;
-  flex-grow: 1;
-  font-family: 'Roboto', arial, sans-serif;
-  font-weight: 500;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  vertical-align: top;
+.post {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #e2e8f0;
 }
 
-.gsi-material-button .gsi-material-button-state {
-  -webkit-transition: opacity .218s;
-  transition: opacity .218s;
-  bottom: 0;
-  left: 0;
-  opacity: 0;
-  position: absolute;
-  right: 0;
-  top: 0;
+.post form{
+  width: fit-content;
 }
 
-.gsi-material-button:disabled {
-  cursor: default;
-  background-color: #ffffff61;
-  border-color: #1f1f1f1f;
+.title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: "Montserrat", system-ui;
 }
 
-.gsi-material-button:disabled .gsi-material-button-contents {
-  opacity: 38%;
+.user_name {
+  font-style: italic;
 }
 
-.gsi-material-button:disabled .gsi-material-button-icon {
-  opacity: 38%;
-}
-
-.gsi-material-button:not(:disabled):active .gsi-material-button-state, 
-.gsi-material-button:not(:disabled):focus .gsi-material-button-state {
-  background-color: #303030;
-  opacity: 12%;
-}
-
-.gsi-material-button:not(:disabled):hover {
-  -webkit-box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
-  box-shadow: 0 1px 2px 0 rgba(60, 64, 67, .30), 0 1px 3px 1px rgba(60, 64, 67, .15);
-}
-
-.gsi-material-button:not(:disabled):hover .gsi-material-button-state {
-  background-color: #303030;
-  opacity: 8%;
+img {
+  max-width: 200px;
 }

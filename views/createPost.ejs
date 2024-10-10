@@ -6,10 +6,10 @@
     <main>
       <h1><%= title %></h1>
       <%- include("partials/error.ejs") %>
-      <div>
+      <div class="form_container">
         <% if (!user) { %>
         <div>You must be logged in to create a post.</div>
-        <a href="/user/login">Log In</a>
+        <a class="button_a" href="/user/login">Log In</a>
         <% } else { %>
         <form action="/posts/new" method="post">
           <label for="title">Title</label>
