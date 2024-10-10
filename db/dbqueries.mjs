@@ -101,12 +101,16 @@ const updateAdminStatus = async (id, isAdmin, code) => {
 const createPost = async (title, content, userId) => {
   const SQL =
     "INSERT INTO club_posts (title, content, user_id) VALUES ($1, $2, $3)";
-  return query(SQL, [title, content, userId]).rows[0]; // We created only one post once.
+  return query(SQL, [title, content, userId]); // We created only one post once.
 };
 
 // Read all posts
 const readAllPosts = async () => {
-  const SQL = "SELECT * FROM club_posts";
+  const SQL = `
+  SELECT p.id AS id, title, content, name AS user_name, created_at
+  FROM club_posts AS p
+  JOIN club_users
+  ON user_id = club_users.id`;
   const result = await query(SQL);
   return result.rows;
 };
