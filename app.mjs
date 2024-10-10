@@ -52,10 +52,9 @@ app.use((req, res, next) => {
 // Flash messages configuration
 app.use(flash());
 app.use((req, res, next) => {
-  var msgs = req.session.messages || [];
+  var msgs = req.flash();
   res.locals.messages = msgs;
-  res.locals.hasMessages = !!msgs.length;
-  req.session.messages = [];
+  res.locals.hasMessages = !!Object.keys(msgs).length;
   next();
 });
 
@@ -70,13 +69,12 @@ app.use((req, res, next) => {
 
 // General error handler
 app.use((err, req, res, next) => {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get("env") === "development" ? err : {};
+  let msg = err.message;
+  msg = req.app.get("env") === "development" ? err : {};
 
   // render the error page
   res.status(err.status || 500);
-  res.render("errorPage", { title: "Error", req });
+  res.render("errorPage", { title: "Error", msg });
 });
 
 const PORT = process.env.PORT || 8080;
