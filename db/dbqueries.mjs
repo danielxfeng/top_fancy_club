@@ -65,15 +65,36 @@ const readUserById = async (id) => {
 };
 
 // Update the membership status of a user
-const updateClubMembership = async (id, isClubMember) => {
-  const SQL = "UPDATE club_users SET is_club_member = $2 WHERE id = $1";
-  return query(SQL, [id, isClubMember]);
+const updateClubMembership = async (id, isClubMember, code) => {
+  const SQL = `
+  UPDATE club_users
+  SET is_club_member = $2
+  WHERE id = $1
+    AND $3 = ANY(
+      SELECT code
+      FROM club_codes
+      WHERE name = 'member'
+    )
+  RETURNING *`;
+  const result = await query(SQL, [id, isClubMember, code]);
+  return result.rows[0];
 };
 
-// Update the admin status of a user
-const updateAdminStatus = async (id, isAdmin) => {
-  const SQL = "UPDATE club_users SET is_admin = $2 WHERE id = $1";
-  return query(SQL, [id, isAdmin]);
+// Update the admin status of a user.
+// When a user becomes an admin, he/she also become a club member.
+const updateAdminStatus = async (id, isAdmin, code) => {
+  const SQL = `
+  UPDATE club_users
+  SET is_admin = $2, is_club_member = $2
+  WHERE id = $1
+    AND $3 = ANY(
+      SELECT code
+      FROM club_codes
+      WHERE name = 'admin'
+    )
+  RETURNING *`;
+  const result = await query(SQL, [id, isAdmin, code]);
+  return result.rows[0];
 };
 
 // Create a new post
